@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from parse.constants import *
 from telegram_bot_pagination import  InlineKeyboardPaginator
+import emoji
 
 paginator = InlineKeyboardPaginator(
     page_count=5,
@@ -13,7 +14,7 @@ def get_url_button(url):
     url_button = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text='Go to site', url=url)
+                InlineKeyboardButton(text=TO_SITE + emoji.emojize(' :rocket:'), url=url)
             ]
         ]
     )
@@ -39,7 +40,7 @@ choose_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='ACCESSORIES', callback_data=ACCESSORIES)
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -65,7 +66,7 @@ men_shoes_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='MOTOSPORT', callback_data=MOTOSPORT)
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -88,7 +89,7 @@ women_shoes_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='BASKETBALL HERITAGE', callback_data=BASKETBALL_HERITAGE)
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -109,7 +110,7 @@ mens_clothing_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='PANTS', callback_data=PANTS)
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -133,7 +134,7 @@ women_clothing_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='SPORTS BRAS', callback_data=BRAS)
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -153,7 +154,7 @@ choose_price_accessories = InlineKeyboardMarkup(
             InlineKeyboardButton(text='100 USD', callback_data='100.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -171,7 +172,7 @@ choose_price_kids_clothing = InlineKeyboardMarkup(
             InlineKeyboardButton(text='80 USD', callback_data='80.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -195,7 +196,7 @@ choose_price_kids_shoes = InlineKeyboardMarkup(
             InlineKeyboardButton(text='100 USD', callback_data='100.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel')
+            InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)
         ]
     ]
 )
@@ -219,7 +220,7 @@ choose_price_lifestyle = InlineKeyboardMarkup(
             InlineKeyboardButton(text='200 USD', callback_data='200.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -237,7 +238,7 @@ choose_price_classics = InlineKeyboardMarkup(
             InlineKeyboardButton(text='200 USD', callback_data='200.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -255,7 +256,7 @@ choose_price_training = InlineKeyboardMarkup(
             InlineKeyboardButton(text='120 USD', callback_data='120.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -273,7 +274,7 @@ choose_price_running = InlineKeyboardMarkup(
             InlineKeyboardButton(text='150 USD', callback_data='150.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -286,7 +287,7 @@ choose_price_slides = InlineKeyboardMarkup(
             InlineKeyboardButton(text='50 USD', callback_data='50.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -300,7 +301,7 @@ choose_price_basketball_p = InlineKeyboardMarkup(
             InlineKeyboardButton(text='200 USD', callback_data='200.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -318,7 +319,7 @@ choose_price_basketball_h = InlineKeyboardMarkup(
             InlineKeyboardButton(text='150 USD', callback_data='150.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -336,7 +337,7 @@ choose_price_motosport = InlineKeyboardMarkup(
             InlineKeyboardButton(text='200 USD', callback_data='200.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -362,7 +363,7 @@ choose_price_tshirts = InlineKeyboardMarkup(
             InlineKeyboardButton(text='100 USD', callback_data='100.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -383,7 +384,7 @@ choose_price_hoodies = InlineKeyboardMarkup(
             InlineKeyboardButton(text='150 USD', callback_data='150.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -401,7 +402,7 @@ choose_price_shorts = InlineKeyboardMarkup(
             InlineKeyboardButton(text='70 USD', callback_data='70.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -419,7 +420,7 @@ choose_price_tracksuits = InlineKeyboardMarkup(
             InlineKeyboardButton(text='150 USD', callback_data='150.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -436,7 +437,7 @@ choose_price_pants = InlineKeyboardMarkup(
             InlineKeyboardButton(text='120 USD', callback_data='120.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -450,7 +451,7 @@ choose_price_leggings = InlineKeyboardMarkup(
             InlineKeyboardButton(text='100 USD', callback_data='100.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -464,7 +465,7 @@ choose_price_bras = InlineKeyboardMarkup(
             InlineKeyboardButton(text='50 USD', callback_data='50.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )
@@ -484,7 +485,7 @@ choose_price_jackets = InlineKeyboardMarkup(
             InlineKeyboardButton(text='250 USD', callback_data='250.00')
         ],
         [
-            InlineKeyboardButton(text='Cancel', callback_data='cancel price')
+            InlineKeyboardButton(text=CANCEL, callback_data=PRICE_CANCEL)
         ]
     ]
 )

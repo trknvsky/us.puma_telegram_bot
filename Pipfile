@@ -16,6 +16,7 @@ aiohttp = {extras = ["speedups"], version = "*"}
 environs = "*"
 python-telegram-bot-pagination = "*"
 asyncpg = "*"
+emoji = "*"
 
 [dev-packages]
 

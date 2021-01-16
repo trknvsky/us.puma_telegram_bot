@@ -37,12 +37,15 @@ def get_html(url, cgid, to_price):
                 for product_tile_picture in product_tile_pictures:
                     images = product_tile_picture.find_all('img', {
                         'class': 'product-tile-image product-tile-image--default tile-image'})
-                    img = images[0].get('data-src').replace('450', '2000')
+                    img = images[0].get('data-src').replace('450', '2000').replace("’", "")
                     item['img'] = img
             for price in prices:
                 item['price'] = price.get('data-price-value')
                 item['currency'] = price.get('data-price-currency')
                 if price.get('data-price-value') != '':
                     if Decimal(price.get('data-price-value')) < Decimal(to_price):
+                        count += 1
+                        item['count'] = count
                         items_data.append(item)
+    print(count)
     return items_data

@@ -40,12 +40,14 @@ data = DBCommands()
 @dp.message_handler(commands=['start'])
 async def register_user(message: types.Message):
     chat_id = message.from_user.id
-    id = await data.add_new_user()
+    user_id = await data.add_new_user()
     count_users = await data.count_users()
-    if not id:
-        id = await data.get_id()
+    text = ""
+    if not user_id:
+        user_id = await data.get_id()
     else:
         text = "Записано в базу данных"
+
     text += f"""
 Сейчас в базе {count_users} человек!
 

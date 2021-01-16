@@ -17,9 +17,11 @@ async def create_db():
         password=PG_PASS,
         host=PG_HOST
     )
-    await conn.execute(create_db_command)
+    try:
+        await conn.execute(create_db_command)
+    except asyncpg.exceptions.DuplicateTableError:
+        pass
     await conn.close()
-    logging.info("Table was created")
 
 
 async def create_pool():
