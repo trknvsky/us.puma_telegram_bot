@@ -1,18 +1,14 @@
 import asyncio
 from aiogram import executor
-from loader import dp
-import middlewares, filters, handlers
-from utils.db_api.sql import create_db
 from utils.notify_admins import on_startup_notify
-from data.config import ADMINS
-from loader import bot
+from utils.db_api.database import create_db
 
 
-async def on_startup(dispatcher):
-    await asyncio.sleep(2)
+async def on_startup(dp):
+    await asyncio.sleep(10)
     await create_db()
-    await on_startup_notify(dispatcher)
-
+    await on_startup_notify(dp)
 
 if __name__ == '__main__':
+    from handlers import dp
     executor.start_polling(dp, on_startup=on_startup)

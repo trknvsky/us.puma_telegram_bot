@@ -2,7 +2,7 @@ from aiogram.dispatcher.filters import Command
 from aiogram.types import Message, CallbackQuery
 from parse.parse_html import get_html
 from keyboards.inline.choice_buttons import *
-from loader import dp, bot, db
+from loader import dp, bot
 from asyncpg import Connection, Record
 import emoji
 
@@ -113,6 +113,3 @@ async def back(call: CallbackQuery):
     edit_cgid = cgid.split('-')[0] + '-' + cgid.split('-')[1]      # удаляем последнее изменение передаваемое в параматры url
     cgid = edit_cgid                                               # перезаписываем параметры передаваемые в url
     await call.message.delete()
-
-
-

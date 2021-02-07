@@ -17,6 +17,8 @@ environs = "*"
 python-telegram-bot-pagination = "*"
 asyncpg = "*"
 emoji = "*"
+gino = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 
