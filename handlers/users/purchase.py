@@ -2,9 +2,8 @@ from aiogram.dispatcher.filters import Command
 from aiogram.types import Message, CallbackQuery
 from parse.parse_html import get_html
 from keyboards.inline.choice_buttons import *
-from loader import dp, bot
-from asyncpg import Connection, Record
-import emoji
+from loader import dp
+from keyboards.inline.pagination import *
 
 cgid = None                # параметры передаваемые с url
 
@@ -91,7 +90,8 @@ async def choice_category(call: CallbackQuery):
 async def get_price(call: CallbackQuery):
     global cgid
     item_list = get_html(URL, cgid, call.data)
-    count = 0
+    if not item_list:
+        await call.message.answer('Ничего не найдено')
     for item in item_list:
         await call.message.answer_photo(
             item['img'], f"{item['name']}\n {item['price']} {item['currency']}",

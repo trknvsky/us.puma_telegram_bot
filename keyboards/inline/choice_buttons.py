@@ -1,13 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from parse.constants import *
-from telegram_bot_pagination import  InlineKeyboardPaginator
 import emoji
-
-paginator = InlineKeyboardPaginator(
-    page_count=5,
-    current_page=1,
-    data_pattern='{page}'
-)
 
 
 def get_url_button(url):

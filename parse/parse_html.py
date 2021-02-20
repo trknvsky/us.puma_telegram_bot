@@ -10,7 +10,9 @@ def get_html(url, cgid, to_price):
         'sz': 2000,
         'isAjax': 1
     }
-    response = requests.get(url, params=params)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)'
+               'AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 39.0.2171.95Safari / 537.36'}
+    response = requests.get(url, params=params, headers=headers)
     contents = response.text
     soup = BeautifulSoup(contents, 'lxml')
     items_data = []
@@ -47,5 +49,4 @@ def get_html(url, cgid, to_price):
                         count += 1
                         item['count'] = count
                         items_data.append(item)
-    print(count)
     return items_data
