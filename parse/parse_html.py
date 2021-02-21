@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from decimal import Decimal
 
 
-def get_html(url, cgid, to_price):
+def get_html(url, cgid, from_price, to_price):
     params = {
         'cgid': cgid,
         'start': 0,
@@ -45,7 +45,8 @@ def get_html(url, cgid, to_price):
                 item['price'] = price.get('data-price-value')
                 item['currency'] = price.get('data-price-currency')
                 if price.get('data-price-value') != '':
-                    if Decimal(price.get('data-price-value')) < Decimal(to_price):
+                    item_price = Decimal(price.get('data-price-value'))
+                    if item_price > Decimal(from_price)and item_price < Decimal(to_price):
                         count += 1
                         item['count'] = count
                         items_data.append(item)
