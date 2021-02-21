@@ -1,7 +1,7 @@
 from .help import dp
 from .start import dp
 from .purchase import dp
-from .handlers import dp
+from .start import dp
 from .echo import dp
 
 

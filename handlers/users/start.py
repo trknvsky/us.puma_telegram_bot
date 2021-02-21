@@ -1,9 +1,23 @@
+from aiogram.dispatcher.filters import CommandStart
+from utils.db_api.db_commands import DBCommands
+from loader import dp, bot
 from aiogram import types
-from aiogram.dispatcher.filters.builtin import CommandStart
 
-from loader import dp
+data = DBCommands()
 
 
-    # @dp.message_handler(CommandStart())
-    # async def bot_start(message: types.Message):
-    #     await message.answer(f"Привет, {message.from_user.full_name}!")
+@dp.message_handler(CommandStart())
+async def register_user(message: types.Message):
+    chat_id = message.from_user.id
+    user = await data.add_new_user()
+    count_users = await data.count_users()
+
+    text = ("Приветствую вас {}!!\n"
+            "Что бы начать нажмите /items\n").format(user.full_name)
+
+    await bot.send_message(chat_id, text)
+
+
+
+
+
