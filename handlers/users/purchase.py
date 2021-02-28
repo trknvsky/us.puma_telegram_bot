@@ -96,14 +96,17 @@ async def get_price(call: CallbackQuery):
     item_list = get_html(URL, cgid, from_price, to_price)
     if not item_list:
         await call.message.answer('Nothing to show for this price!')
+        await call.message.answer(text=GENDER_SELECT, reply_markup=choose_gender)
     else:
         await call.message.answer(text="{} items for you request! Wait a moment..".format(len(item_list)))
-    await asyncio.sleep(3)
-    for item in item_list:
-        await call.message.answer_photo(
-            item['img'], f"{item['name']}\n {item['price']} {item['currency']}",
-            reply_markup=get_url_button(item['href'])
-        )
+        await asyncio.sleep(3)
+        for item in item_list:
+            await call.message.answer_photo(
+                item['img'], f"{item['name']}\n {item['price']} {item['currency']}",
+                reply_markup=get_url_button(item['href'])
+            )
+        await asyncio.sleep(3)
+        await call.message.answer(text=GENDER_SELECT, reply_markup=choose_gender)
 
 
 @dp.callback_query_handler(text=CANCEL)
