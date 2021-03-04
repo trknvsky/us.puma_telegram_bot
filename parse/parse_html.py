@@ -21,17 +21,13 @@ def get_html(url, cgid, from_price, to_price):
     for product in products:
         item = {}
         d_none = product.find_all('div', {'class': 'd-none'})
-        tile_body = product.find_all('div', {'class': 'product-tile-body'})
+        tile_body = product.find_all('div', {'class': 'product-tile-info-container'})
+        # print(tile_body)
         product_images = product.find_all('div', {'class': 'product-tile-image-container image-container'})
         for item_names in d_none:
             names = item_names.find_all('span', {'itemprop': 'name'})
             for name in names:
                 item['name'] = name.contents[0]
-        for values in tile_body:
-            hrefs = values.find_all('a', {'class': 'product-tile-link link'})
-            prices = values.find_all('span', {'class': 'sales'})
-            for href in hrefs:
-                item['href'] = 'https://us.puma.com{}'.format(href.get('href'))
         for product_image in product_images:
             product_tile_images = product_image.find_all('a', {'class': 'product-tile-image-link tile-image-link'})
             for product_tile_image in product_tile_images:
@@ -39,15 +35,26 @@ def get_html(url, cgid, from_price, to_price):
                 for product_tile_picture in product_tile_pictures:
                     images = product_tile_picture.find_all('img', {
                         'class': 'product-tile-image product-tile-image--default tile-image'})
-                    img = images[0].get('data-src').replace('450', '2000').replace("’", "")
+                    img = images[0].get('data-src').replace('450', '2000').replace("’", "").replace("bv", "mod01")
+                    chars_counter = 1
+                    while chars_counter != 8:
+                        img = img.replace(f"sv0{chars_counter}", 'sv01').replace(f"dt0{chars_counter}", "sv01")
+                        chars_counter += 1
                     item['img'] = img
+        for values in tile_body:
+            hrefs = values.find_all('a', {'class': 'product-tile-link product-tile-title pdp-link line-item-limited'})
+            prices = values.find_all('div', {'class': 'product-tile-info-price'})
+            for href in hrefs:
+                item['href'] = 'https://us.puma.com{}'.format(href.get('href'))
             for price in prices:
-                item['price'] = price.get('data-price-value')
-                item['currency'] = price.get('data-price-currency')
-                if price.get('data-price-value') != '':
-                    item_price = Decimal(price.get('data-price-value'))
-                    if item_price > Decimal(from_price)and item_price < Decimal(to_price):
-                        count += 1
-                        item['count'] = count
-                        items_data.append(item)
+                item['price'] = price.contents[1].contents[0][1:]
+                item['currency'] = 'USD'
+                if len(price.contents[1].contents[0][1:]) > 3:
+                    item_price = Decimal(price.contents[1].contents[0][1:])
+                    if item_price != '':
+                        if item_price > Decimal(from_price) and item_price < Decimal(to_price):
+                            count += 1
+                            item['count'] = count
+                            items_data.append(item)
+
     return items_data
