@@ -22,25 +22,24 @@ def get_html(url, cgid, from_price, to_price):
         item = {}
         d_none = product.find_all('div', {'class': 'd-none'})
         tile_body = product.find_all('div', {'class': 'product-tile-info-container'})
-        # print(tile_body)
         product_images = product.find_all('div', {'class': 'product-tile-image-container image-container'})
+        # NAMES
         for item_names in d_none:
             names = item_names.find_all('span', {'itemprop': 'name'})
             for name in names:
                 item['name'] = name.contents[0]
+        # IMAGES
         for product_image in product_images:
-            product_tile_images = product_image.find_all('a', {'class': 'product-tile-image-link tile-image-link'})
-            for product_tile_image in product_tile_images:
-                product_tile_pictures = product_tile_image.find_all('picture', {'class': 'tile-picture js-picture-lazy'})
-                for product_tile_picture in product_tile_pictures:
-                    images = product_tile_picture.find_all('img', {
-                        'class': 'product-tile-image product-tile-image--default tile-image'})
-                    img = images[0].get('data-src').replace('450', '2000').replace("’", "").replace("bv", "mod01")
-                    chars_counter = 1
-                    while chars_counter != 8:
-                        img = img.replace(f"sv0{chars_counter}", 'sv01').replace(f"dt0{chars_counter}", "sv01")
-                        chars_counter += 1
-                    item['img'] = img
+            carousel_slides = product_image.find_all('div', {'class': 'glide-carousel-slides'})
+            for carousel_slide in carousel_slides:
+                slides = carousel_slide.div
+                pictures = slides.find_all('picture', {'class': 'tile-picture js-picture-lazy'})
+                for picture in pictures:
+                    image_urls = picture.find_all('img', {'class': 'product-tile-image product-tile-image--default tile-image'})
+                    for image_url in image_urls:
+                        image = image_url.get('data-src')
+                item['img'] = image.replace("’", "")
+        # URLS AND PRICES
         for values in tile_body:
             hrefs = values.find_all('a', {'class': 'product-tile-link product-tile-title pdp-link line-item-limited'})
             prices = values.find_all('div', {'class': 'product-tile-info-price'})
@@ -52,9 +51,8 @@ def get_html(url, cgid, from_price, to_price):
                 if len(price.contents[1].contents[0][1:]) > 3:
                     item_price = Decimal(price.contents[1].contents[0][1:])
                     if item_price != '':
-                        if item_price > Decimal(from_price) and item_price < Decimal(to_price):
+                        if Decimal(from_price) < item_price < Decimal(to_price):
                             count += 1
                             item['count'] = count
                             items_data.append(item)
-
     return items_data

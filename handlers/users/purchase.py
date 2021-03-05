@@ -84,6 +84,8 @@ async def choice_category(call: CallbackQuery):
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_bras)
     elif call.data == JACKETS:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_jackets)
+    if cgid == 'womens-clothing-pants':
+        cgid = 'women-clothing-pants'
     print(cgid)
 
 

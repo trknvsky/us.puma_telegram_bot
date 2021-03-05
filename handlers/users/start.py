@@ -12,8 +12,8 @@ async def register_user(message: types.Message):
     user = await data.add_new_user()
     count_users = await data.count_users()
 
-    text = ("Приветствую вас {}!!\n"
-            "Что бы начать нажмите /items\n").format(user.full_name)
+    text = ("Hello, {}!!\n"
+            "Tap /items to show menu\n").format(user.full_name)
 
     await bot.send_message(chat_id, text)
 
