@@ -96,6 +96,7 @@ async def get_price(call: CallbackQuery):
     from_price = price[0]
     to_price = price[1]
     item_list = get_html(URL, cgid, from_price, to_price)
+    print(item_list)
     if not item_list:
         await call.message.answer('Nothing to show for this price!')
         await call.message.answer(text=GENDER_SELECT, reply_markup=choose_gender)

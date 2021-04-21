@@ -41,7 +41,7 @@ def get_html(url, cgid, from_price, to_price):
                 item['img'] = image.replace("’", "")
         # URLS AND PRICES
         for values in tile_body:
-            hrefs = values.find_all('a', {'class': 'product-tile-link product-tile-title pdp-link line-item-limited'})
+            hrefs = values.find_all('a', {'class': 'product-tile-title product-tile__title pdp-link line-item-limited'})
             prices = values.find_all('div', {'class': 'product-tile-info-price'})
             for href in hrefs:
                 item['href'] = 'https://us.puma.com{}'.format(href.get('href'))
