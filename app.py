@@ -6,7 +6,7 @@ from utils.db_api.database import create_db
 
 async def on_startup(dp):
     await asyncio.sleep(5)
-    await create_db()
+    # await create_db()
     await on_startup_notify(dp)
 
 if __name__ == '__main__':

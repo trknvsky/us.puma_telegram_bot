@@ -38,10 +38,11 @@ def get_html(url, cgid, from_price, to_price):
                     image_urls = picture.find_all('img', {'class': 'product-tile-image product-tile-image--default tile-image'})
                     for image_url in image_urls:
                         image = image_url.get('data-src')
-                item['img'] = image.replace("’", "")
+                item['img'] = image.replace("’", "").replace("w_450", "w_2000").replace("h_450", "h_2000")
         # URLS AND PRICES
         for values in tile_body:
-            hrefs = values.find_all('a', {'class': 'product-tile-title product-tile__title pdp-link line-item-limited'})
+            print(values)
+            hrefs = values.find_all('a', {'class': 'product-tile-title product-tile__title pdp-link line-item-limited line-item-limited--2'})
             prices = values.find_all('div', {'class': 'product-tile-info-price'})
             for href in hrefs:
                 item['href'] = 'https://us.puma.com{}'.format(href.get('href'))
