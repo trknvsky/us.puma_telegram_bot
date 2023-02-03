@@ -24,7 +24,7 @@ async def gender_category(call: CallbackQuery):
 @dp.callback_query_handler(text=[SHOES, CLOTHING, ACCESSORIES])
 async def items_category(call: CallbackQuery):
     global cgid
-    if cgid[-1:] == '-':               # проверяем удаление последнего параметра переданного в url при нажатии на cancel
+    if cgid.split('?of')[0][-1:] == '/':               # проверяем удаление последнего параметра переданного в url при нажатии на cancel
         cgid += call.data
     if cgid == MEN + SHOES:
         await call.message.answer(text=CATEGORY_SELECT, reply_markup=men_shoes_category)
@@ -40,12 +40,11 @@ async def items_category(call: CallbackQuery):
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_kids_clothing)
     elif cgid == KIDS_BOYS + SHOES or cgid == KIDS_GIRLS + SHOES:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_kids_shoes)
-    print(cgid)
 
 
 @dp.callback_query_handler(text=[
-    LIFESTYLE, CLASSICS, TRAINING_GYM, RUNNING, BASKETBALL_HERITAGE,
-    BASKETBALL_PERFORMANCE, SLIDES_SANDALS, MOTOSPORT, SHORTS,
+    LIFESTYLE, CLASSICS, TRAINING_GYM, RUNNING, BASKETBALL,
+    BASKETBALL, SLIDES_SANDALS, MOTOSPORT, SHORTS,
     SWEATSHIRTS_HOODIES, T_SHIRTS_TOPS, TRACKSUITS, JACKETS,
     PANTS, LEGGINGS, BRAS
 ])
@@ -64,9 +63,9 @@ async def choice_category(call: CallbackQuery):
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_running)
     elif call.data == SLIDES_SANDALS:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_slides)
-    elif call.data == BASKETBALL_PERFORMANCE:
+    elif call.data == BASKETBALL:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_basketball_p)
-    elif call.data == BASKETBALL_HERITAGE:
+    elif call.data == BASKETBALL:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_basketball_h)
     elif call.data == MOTOSPORT:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_motosport)
@@ -84,9 +83,11 @@ async def choice_category(call: CallbackQuery):
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_bras)
     elif call.data == JACKETS:
         await call.message.answer(text=PRICE_SELECT, reply_markup=choose_price_jackets)
-    if cgid == 'womens-clothing-pants':
-        cgid = 'women-clothing-pants'
-    print(cgid)
+
+    if cgid == 'women/clothing/jackets-and-outerwear':
+        cgid = 'womens/clothing/jackets-and-outerwear'
+    if cgid == 'men/clothing/jackets-and-outerwear':
+        cgid = 'mens/clothing/jackets-and-outerwear'
 
 
 @dp.callback_query_handler(text=PRICES_LIST)
@@ -95,18 +96,19 @@ async def get_price(call: CallbackQuery):
     price = call.data.split(",")
     from_price = price[0]
     to_price = price[1]
-    item_list = get_html(URL, cgid, from_price, to_price)
-    print(item_list)
+    cgid += "?offset=99999"
+    item_list = get_html(URL + cgid, from_price, to_price)
     if not item_list:
+        await call.message.answer(URL + cgid)
         await call.message.answer('Nothing to show for this price!')
         await call.message.answer(text=GENDER_SELECT, reply_markup=choose_gender)
     else:
-        await call.message.answer(text="{} items for you request! Wait a moment..".format(len(item_list)))
+        await call.message.answer(text="{} items for you! Wait a moment..".format(len(item_list)))
         await asyncio.sleep(3)
         for item in item_list:
             await call.message.answer_photo(
-                item['img'], f"{item['name']}\n {item['price']} {item['currency']}",
-                reply_markup=get_url_button(item['href'])
+                item['img'], f"{item['name']}\n {item['price']}",
+                reply_markup=get_url_button(item['url'])
             )
         await asyncio.sleep(3)
         await call.message.answer(text=GENDER_SELECT, reply_markup=choose_gender)
@@ -115,7 +117,7 @@ async def get_price(call: CallbackQuery):
 @dp.callback_query_handler(text=CANCEL)
 async def back(call: CallbackQuery):
     global cgid
-    edit_cgid = cgid.split('-')[0] + '-'      # удаляем последнее изменение передаваемое в параматры url
+    edit_cgid = cgid.split('/')[0] + '/'      # удаляем последнее изменение передаваемое в параматры url
     cgid = edit_cgid                          # перезаписываем параметры передаваемые в url
     await call.message.delete()
 
@@ -123,6 +125,6 @@ async def back(call: CallbackQuery):
 @dp.callback_query_handler(text=PRICE_CANCEL)
 async def back(call: CallbackQuery):
     global cgid
-    edit_cgid = cgid.split('-')[0] + '-' + cgid.split('-')[1]      # удаляем последнее изменение передаваемое в параматры url
+    edit_cgid = cgid.split('/')[0] + '/' + cgid.split('/')[1]      # удаляем последнее изменение передаваемое в параматры url
     cgid = edit_cgid                                               # перезаписываем параметры передаваемые в url
     await call.message.delete()

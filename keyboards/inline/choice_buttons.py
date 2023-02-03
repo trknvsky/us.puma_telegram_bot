@@ -17,10 +17,12 @@ def get_url_button(url):
 choose_gender = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="MEN", callback_data=MEN),
-            InlineKeyboardButton(text="WOMEN", callback_data=WOMEN),
-            InlineKeyboardButton(text="BOYS", callback_data=KIDS_BOYS),
-            InlineKeyboardButton(text="GIRLS", callback_data=KIDS_GIRLS)
+            InlineKeyboardButton(text=f'MEN {emoji.emojize(":man:", use_aliases=True)}', callback_data=MEN),
+            InlineKeyboardButton(text=f'WOMEN {emoji.emojize(":woman:", use_aliases=True)}', callback_data=WOMEN)
+        ],
+        [
+            InlineKeyboardButton(text=f'BOYS {emoji.emojize(":boy:", use_aliases=True)}', callback_data=KIDS_BOYS),
+            InlineKeyboardButton(text=f'GIRLS {emoji.emojize(":girl:", use_aliases=True)}', callback_data=KIDS_GIRLS)
         ]
     ]
 )
@@ -50,12 +52,7 @@ men_shoes_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='SLIDES & SANDALS', callback_data=SLIDES_SANDALS)
         ],
         [
-            InlineKeyboardButton(text='BASKETBALL PERFORMANCE', callback_data=BASKETBALL_PERFORMANCE)
-        ],
-        [
-            InlineKeyboardButton(text='BASKETBALL HERITAGE', callback_data=BASKETBALL_HERITAGE)
-        ],
-        [
+            InlineKeyboardButton(text='BASKETBALL', callback_data=BASKETBALL),
             InlineKeyboardButton(text='MOTOSPORT', callback_data=MOTOSPORT)
         ],
         [
@@ -76,10 +73,10 @@ women_shoes_category = InlineKeyboardMarkup(
             InlineKeyboardButton(text='SLIDES & SANDALS', callback_data=SLIDES_SANDALS)
         ],
         [
-            InlineKeyboardButton(text='BASKETBALL PERFORMANCE', callback_data=BASKETBALL_PERFORMANCE)
+            InlineKeyboardButton(text='BASKETBALL PERFORMANCE', callback_data=BASKETBALL)
         ],
         [
-            InlineKeyboardButton(text='BASKETBALL HERITAGE', callback_data=BASKETBALL_HERITAGE)
+            InlineKeyboardButton(text='BASKETBALL HERITAGE', callback_data=BASKETBALL)
         ],
         [
             InlineKeyboardButton(text=CANCEL, callback_data=CANCEL)

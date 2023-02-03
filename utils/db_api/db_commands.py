@@ -24,3 +24,4 @@ class DBCommands:
     async def count_users(self) -> int:
         total = await db.func.count(User.id).gino.scalar()
         return total
+
