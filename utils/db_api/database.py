@@ -14,7 +14,7 @@ async def create_db():
     logging.info("connecting to db")
     await db.set_bind(POSTGRES_URI)
     db.gino: GinoSchemaVisitor
-    await db.gino.drop_all()
-    # await db.gino.create_all()
+    # await db.gino.drop_all()
+    await db.gino.create_all()
 
 
